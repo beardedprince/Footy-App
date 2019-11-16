@@ -3,7 +3,7 @@ function listing() {
         headers: {
             'X-Auth-Token': '34dc8174922a4961bccd48cb93aee1c1'
         },
-        url: 'http://api.football-data.org/v2/competitions/',
+        url: 'https://api.football-data.org/v2/competitions/',
         datatype: 'jsonp',
         success: function (req) {
             console.log(req)
@@ -38,7 +38,7 @@ function pl() {
         headers: {
             'X-Auth-Token': '34dc8174922a4961bccd48cb93aee1c1'
         },
-        url: 'http://api.football-data.org/v2/competitions/2021/standings',
+        url: 'https://api.football-data.org/v2/competitions/2021/standings',
         datatype: 'jsonp',
         success: function (req) {
             console.log(req)
