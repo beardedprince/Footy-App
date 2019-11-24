@@ -1,20 +1,27 @@
 .holder{
-    border:1px solid black;
+    
     border-radius: 5px;
     z-index: 50;
     width: 70%;
     margin:5% auto;
     margin-top: -50px;
+    
      
 }
 
 .jumbotron{
-    background: url('https://ak2.picdn.net/shutterstock/videos/26467412/thumb/1.jpg');
+    background: url('http://www.seekgif.com/uploads/soccerball-football-background-0.jpg');
     background-size: cover;
     background-repeat: no-repeat;
+    background-position: right center;
+    height: 250px;
+   
 }
 
-
+.card{
+    border: 1px solid rgba(0,0,0,.125);
+    background: #fff;
+}
 .table-hover{
     border-bottom: .5px solid #dedede;
 }
@@ -76,3 +83,29 @@
       .fancy-link:hover:after {
         width: 100%;
       } */
+
+      @media (max-width: 450px){
+        .holder{
+            
+            border-radius: 5px;
+            z-index: 50;
+            width: auto;
+            margin-top: -50px;
+            border: none;
+             
+        }
+    }
+
+    @media (max-width: 576px) {
+
+        .holder{
+            border-radius: 5px;
+            z-index: 50;
+            width: auto;
+            margin-top: -50px;
+            border: none;
+             
+             
+        }
+
+    }

@@ -6,14 +6,20 @@ function listing() {
         url: 'https://api.football-data.org/v2/competitions/',
         datatype: 'jsonp',
         success: function (req) {
-            console.log(req)
-            $.each(req.competitions, function (i, list) {
-                //console.log(i + "" + list);
+            console.log(req);
+          var getlist = $.each(req.competitions, function (i, list) {
+                
+            })
+
+            // filter result according to plan
+            var ne = getlist.filter( element => element.plan === "TIER_ONE");
+            $.each(ne, function(i, list){
                 $(".comp").append(` 
                 <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-4 my-2  py-4 px-4 shadow rounded-sm" data-aos="fade-down">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title"> ${list.name}</h5>
+                        <h5 class="card-title"> <img src = "${list.emblemUrl}"> ${list.name}</h5>
+                        <span class="small h6">${ list.area.name }</span>
                      
           </div>
         </div>
@@ -21,14 +27,8 @@ function listing() {
           </div>
                 `)
             })
-        },
-        // headers:('Access-Control-Allow-Origin : *'),
-
-
-        error: function () {
-            $('footer').append(`
-            <div class = alert alert-danger> Error getting data </div>
-            `)
+            console.log(ne)
+           
         }
     });
 }
@@ -74,7 +74,6 @@ function pl() {
     });
 }
 
-
 function laLiga() {
     return $.ajax({
         headers: {
@@ -115,7 +114,6 @@ function laLiga() {
         }
     });
 }
-
 
 function bundesliga() {
     return $.ajax({
@@ -336,13 +334,14 @@ $(document).ready(function () {
     })
 
     $('.fixtures').click(function () {
+
         $('table').remove()
 
         $.ajax({
             headers: {
                 'X-Auth-Token': '34dc8174922a4961bccd48cb93aee1c1'
             },
-            url: 'https://api.football-data.org/v2/competitions/PL/matches?matchday=13',
+            url: 'https://api.football-data.org/v2/competitions/PL/matches',
             datatype: 'jsonp',
             success: function (req) {
                 console.log(req)
@@ -358,8 +357,13 @@ $(document).ready(function () {
                     <p class = "bg-info rounded text-center text-default" > Match Day : ${match.matchday}</p>
                     <div class="match-holder d-flex">
                             <div class= " home-row w-100">
-                                <p > ${match.homeTeam.name}</p>
-                                <p > ${match.awayTeam.name}</p>
+                                <h6 > ${match.homeTeam.name}   </h6>
+                                <h6 > ${match.awayTeam.name} </span></h6>
+                                
+                            </div>
+                            <div class= " home-row ">
+                                <h6 > <span class ="ml-2"> ${match.score.fullTime.homeTeam} </span> </h6>
+                                <h6 > <span class ="ml-2"> ${match.score.fullTime.awayTeam} </span></h6>
                                 
                             </div>
                             <div class= "date-time-row align-self-center pl-1 ml-5">
@@ -369,12 +373,10 @@ $(document).ready(function () {
 
                         
                     </div>
-                   
-                    
-                    
-                             
+                          
               
-                    `)
+                    `
+                    )
                 })
             },
             // headers:('Access-Control-Allow-Origin : *'),
@@ -386,6 +388,8 @@ $(document).ready(function () {
                 `)
             }
         });
+
+
     })
 
     // ============================== End English PL data ===================================
@@ -488,12 +492,13 @@ $(document).ready(function () {
             headers: {
                 'X-Auth-Token': '34dc8174922a4961bccd48cb93aee1c1'
             },
-            url: 'https://api.football-data.org/v2/competitions/BL1/matches?matchday=13',
+            url: 'https://api.football-data.org/v2/competitions/BL1/matches',
             datatype: 'jsonp',
             success: function (req) {
                 console.log(req)
                 $.each(req.matches, function (i, match) {
                     //console.log(i + "" + result);
+                    
                     var time = match.utcDate;
                     var convertTime = new Date(time);
                     var getTime = convertTime.toLocaleString().replace(/GMT.*/g, "");
@@ -504,10 +509,16 @@ $(document).ready(function () {
                     <p class = "bg-info rounded text-center text-default" > Match Day : ${match.matchday}</p>
                     <div class="match-holder d-flex">
                             <div class= " home-row w-100">
-                                <p > ${match.homeTeam.name}</p>
-                                <p > ${match.awayTeam.name}</p>
+                                <h6 > ${match.homeTeam.name}   </h6>
+                                <h6 > ${match.awayTeam.name} </span></h6>
                                 
                             </div>
+                            <div class= " home-row ">
+                                <h6 > <span class ="ml-2"> ${match.score.fullTime.homeTeam} </span> </h6>
+                                <h6 > <span class ="ml-2"> ${match.score.fullTime.awayTeam} </span></h6>
+                                
+                            </div>
+
                             <div class= "date-time-row align-self-center pl-1 ml-5">
                                 <p class="card-title"> ${getTime}</p>
                             </div>
@@ -633,7 +644,7 @@ $(document).ready(function () {
             headers: {
                 'X-Auth-Token': '34dc8174922a4961bccd48cb93aee1c1'
             },
-            url: 'https://api.football-data.org/v2/competitions/SA/matches?matchday=13',
+            url: 'https://api.football-data.org/v2/competitions/SA/matches',
             datatype: 'jsonp',
             success: function (req) {
                 console.log(req)
@@ -649,8 +660,13 @@ $(document).ready(function () {
                     <p class = "bg-info rounded text-center text-default" > Match Day : ${match.matchday}</p>
                     <div class="match-holder d-flex">
                             <div class= " home-row w-100">
-                                <p > ${match.homeTeam.name}</p>
-                                <p > ${match.awayTeam.name}</p>
+                                <h6 > ${match.homeTeam.name}   </h6>
+                                <h6 > ${match.awayTeam.name} </span></h6>
+                                
+                            </div>
+                            <div class= " home-row ">
+                                <h6 > <span class ="ml-2 "> ${match.score.fullTime.homeTeam} </span> </h6>
+                                <h6 > <span class ="ml-2"> ${match.score.fullTime.awayTeam} </span></h6>
                                 
                             </div>
                             <div class= "date-time-row align-self-center pl-1 ml-5">
@@ -779,7 +795,7 @@ $(document).ready(function () {
             headers: {
                 'X-Auth-Token': '34dc8174922a4961bccd48cb93aee1c1'
             },
-            url: 'https://api.football-data.org/v2/competitions/FL1/matches?matchday=13',
+            url: 'https://api.football-data.org/v2/competitions/FL1/matches',
             datatype: 'jsonp',
             success: function (req) {
                 console.log(req)
@@ -788,15 +804,20 @@ $(document).ready(function () {
                     var time = match.utcDate;
                     var convertTime = new Date(time);
                     var getTime = convertTime.toLocaleString().replace(/GMT.*/g, "");
-
+                    
                     $(".row").append(` 
     
                     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mb-4 my-2  py-4 px-4 match" data-aos="fade-down">
                     <p class = "bg-info rounded text-center text-default" > Match Day : ${match.matchday}</p>
                     <div class="match-holder d-flex">
                             <div class= " home-row w-100">
-                                <p > ${match.homeTeam.name}</p>
-                                <p > ${match.awayTeam.name}</p>
+                                <h6 > ${match.homeTeam.name}   </h6>
+                                <h6 > ${match.awayTeam.name} </span></h6>
+                                
+                            </div>
+                            <div class= " home-row ">
+                                <h6 > <span class ="ml-2"> ${match.score.fullTime.homeTeam} </span> </h6>
+                                <h6 > <span class ="ml-2"> ${match.score.fullTime.awayTeam} </span></h6>
                                 
                             </div>
                             <div class= "date-time-row align-self-center pl-1 ml-5">
@@ -925,7 +946,7 @@ $(document).ready(function () {
             headers: {
                 'X-Auth-Token': '34dc8174922a4961bccd48cb93aee1c1'
             },
-            url: 'https://api.football-data.org/v2/competitions/PD/matches?matchday=13',
+            url: 'https://api.football-data.org/v2/competitions/PD/matches',
             datatype: 'jsonp',
             success: function (req) {
                 console.log(req)
@@ -941,8 +962,13 @@ $(document).ready(function () {
                     <p class = "bg-info rounded text-center text-default" > Match Day : ${match.matchday}</p>
                     <div class="match-holder d-flex">
                             <div class= " home-row w-100">
-                                <p > ${match.homeTeam.name}</p>
-                                <p > ${match.awayTeam.name}</p>
+                                <h6 > ${match.homeTeam.name}   </h6>
+                                <h6 > ${match.awayTeam.name} </span></h6>
+                                
+                            </div>
+                            <div class= " home-row ">
+                                <h6 > <span class ="ml-2"> ${match.score.fullTime.homeTeam} </span> </h6>
+                                <h6 > <span class ="ml-2"> ${match.score.fullTime.awayTeam} </span></h6>
                                 
                             </div>
                             <div class= "date-time-row align-self-center pl-1 ml-5">
@@ -1031,10 +1057,8 @@ $(document).ready(function () {
 
     // ================= End CL liga Data =================================
 
-    $(function () {
-        $("#tabs").tabs();
-    });
 
+    
 
     AOS.init();
 });
